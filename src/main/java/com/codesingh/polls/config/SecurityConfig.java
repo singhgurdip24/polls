@@ -1,8 +1,12 @@
 package com.codesingh.polls.config;
 
+import com.codesingh.polls.security.CustomUserDetailsService;
+import com.codesingh.polls.security.JwtAuthenticationEntryPoint;
+import com.codesingh.polls.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +30,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    CustomUserDetialsService customUserDetialsService;
+    CustomUserDetailsService customUserDetialsService;
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -43,7 +48,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
     @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        super.authenticationManagerBean();
+        return super.authenticationManagerBean();
     }
 
     @Bean
