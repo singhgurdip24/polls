@@ -14,14 +14,14 @@ import java.util.List;
 public interface VoteRepository extends JpaRepository<Vote, Long> {
 
     @Query("SELECT " +
-                "NEW com.example.polls.model.ChoiceVoteCount(v.choice.id, count(v.id)) " +
+                "NEW com.codesingh.polls.model.ChoiceVoteCount(v.choice.id, count(v.id)) " +
                     "FROM Vote v " +
                     "WHERE v.poll.id in :pollIds " +
                     "GROUP BY v.choice.id")
     List<ChoiceVoteCount> countByPollIdInGroupByChoiceId(@Param("pollIds") List<Long> pollIds);
 
     @Query("SELECT " +
-                "NEW com.example.polls.model.ChoiceVoteCount(v.choice.id, count(v.id)) " +
+                "NEW com.codesingh.polls.model.ChoiceVoteCount(v.choice.id, count(v.id)) " +
                     "FROM Vote v " +
                     "WHERE v.poll.id = :pollId " +
                     "GROUP BY v.choice.id")
